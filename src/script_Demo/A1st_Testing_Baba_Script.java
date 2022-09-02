@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import Excelutility.Excelutiltiy_program;
+
 public class A1st_Testing_Baba_Script {
 	
 	public static void main(String[] args) throws InterruptedException {
@@ -18,7 +20,8 @@ public class A1st_Testing_Baba_Script {
 		String title = driver.getTitle();
 		System.out.println(title);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.findElement(By.xpath("//*[@id=\"myModal2\"]/div/div/div[1]/button")).click();
+		driver.findElement(By.cssSelector("body.modal-open:nth-child(2) div.container-fluid:nth-child(14) div.modal.fade.show div.modal-dialog div.modal-content div.modal-header > button.close")).click();
+//		driver.findElement(By.xpath("//*[@id=\"myModal2\"]/div/div/div[1]/button")).click();
 		driver.findElement(By.xpath("//*[@id=\"kt\"]/li[6]/a")).click();
 		driver.navigate().refresh();
 		driver.findElement(By.xpath("//*[@id=\"myModal2\"]/div/div/div[1]/button")).click();
@@ -44,7 +47,11 @@ public class A1st_Testing_Baba_Script {
 		driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"tab_2\"]/div/iframe")));
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[@onclick=\"myFunction()\"]")).click();
+		
 		driver.findElement(By.xpath("//*[@id=\"mylaptop\"]")).click();
+		String checkbox = driver.findElement(By.xpath("//*[@id=\"text\"]")).getText();
+		System.out.println(checkbox);
+		
 		driver.findElement(By.xpath("//*[@id=\"mydesktop\"]")).click();
 		driver.switchTo().defaultContent();
 		driver.findElement(By.xpath("//*[text()='radio buttons']")).click();
@@ -52,6 +59,9 @@ public class A1st_Testing_Baba_Script {
 		driver.findElement(By.xpath("//*[@id=\"impressive\"]")).click();
 		driver.findElement(By.xpath("//*[@id=\"no\"]")).click();
 		driver.findElement(By.xpath("//*[text()='web tables']")).click();
+		driver.switchTo().frame(driver.findElement(By.xpath("//*[@src=\"Webtable.html\"]")));
+		Thread.sleep(1000);
+		
 		
 		
 		
@@ -59,4 +69,4 @@ public class A1st_Testing_Baba_Script {
 		
 	}
 
-}
+} 

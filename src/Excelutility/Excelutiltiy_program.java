@@ -7,8 +7,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Excelutiltiy_program {
 	
-	public String excelutility(String path, int rownum, int columnum) {
-		
+	public String excelutility( int rownum, int columnum) {
+		String path="\"C:\\Users\\Agio13\\AppData\\Local\\Kingsoft\\WPS Office\\\"";
 		String value="";
 		try {
 			FileInputStream fis=new FileInputStream(path);
@@ -20,8 +20,8 @@ public class Excelutiltiy_program {
 		}
 		return value;
 	}
-	public static int rowcount(String path) {
-		
+	public static int rowcount() {
+		String path="\"C:\\Users\\Agio13\\AppData\\Local\\Kingsoft\\WPS Office\\\"";
 		int lastrowCount=0;
 		try {
 			FileInputStream fis=new FileInputStream(path);

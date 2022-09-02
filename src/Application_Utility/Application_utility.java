@@ -1,4 +1,4 @@
-package script_Demo;
+package Application_Utility;
 
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -19,12 +19,13 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -33,26 +34,25 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.common.io.Files;
 
 import baseliberary.Baseliberary;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class A2nd_Important_Code extends Baseliberary {
+public class Application_utility extends Baseliberary {
 	
 	public void getscreenshot() {
 		try {
 			TakesScreenshot ts=(TakesScreenshot)driver;
-			File src=ts.getScreenshotAs(OutputType.FILE);
+			File src=ts.getScreenshotAs(OutputType.FILE); 
 			String screenshotName=null;
 			File dest=new File("./screenshot"+screenshotName+"./png");
 			Files.copy(src, dest);
-		} catch ( Exception e) {
-			System.out.println("Issue in get screen shot "+e);
-		}
+			
+		} catch (Exception e) {
+			System.out.println("Issue in take screenshot "+e);
+	}
 	}
 	
 	public void driverlouch(String url) {
@@ -74,7 +74,7 @@ public class A2nd_Important_Code extends Baseliberary {
 		driver.get(url);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		}
+	}
 	
 	public void clickmethod() {
 		Actions act=new Actions(driver);
@@ -82,11 +82,10 @@ public class A2nd_Important_Code extends Baseliberary {
 		act.contextClick().perform();
 		act.moveToElement(null, 0, 0);
 		act.dragAndDropBy(null, 0, 0).build().perform();
+		
 	}
 	
-	
 	public void drivermethod(String url) {
-		
 		driver.findElement(By.xpath("")).click();
 		driver.findElement(By.xpath("")).clear();
 		driver.findElement(By.xpath("")).sendKeys("montu");
@@ -96,7 +95,7 @@ public class A2nd_Important_Code extends Baseliberary {
 		driver.navigate().forward();
 		driver.navigate().back();
 		driver.switchTo().frame("{frameName/frameId/frameXpath}");
-		driver.switchTo().defaultContent();
+		driver.switchTo().defaultContent();        //To exit the frame
 		driver.switchTo().alert().accept();
 		driver.switchTo().alert().dismiss();
 		driver.switchTo().alert().getClass();
@@ -105,35 +104,48 @@ public class A2nd_Important_Code extends Baseliberary {
 		driver.get(url);
 		driver.close();
 		driver.quit();
-		}
-	
-	public void changewindow(int tabindex) {
-		Set<String> tab=driver.getWindowHandles();
-		ArrayList<String> tabs=new ArrayList<String>(tab);
-		driver.switchTo().window(tabs.get(tabindex));
 	}
+	public void changewindow(int tabindex) {
+		Set<String> tab = driver.getWindowHandles();
+		ArrayList<String> tabs=new ArrayList<String>();
+		driver.switchTo().window(tabs.get(tabindex));
+		}
 	
 	public void dynamicwait() {
 		WebDriverWait wait=new WebDriverWait(driver, 100);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("")));
+		
 	}
 	
-	public void dropdownbyvalue(WebElement ele, String value) {
+	public void dropdwonbyvalue(WebElement ele, String value) {
 		Select sel=new Select(ele);
 		sel.selectByVisibleText(value);
 		sel.selectByIndex(0);
 		sel.selectByValue(value);
 	}
+	
+	public String getcurrentdateandtime() {
+		String datetime=null;
+		try {
+			DateFormat df=new SimpleDateFormat("dd-mm-yyyy   hh:mm");
+			Date dateobj=new Date();
+			df.format(dateobj);
+			datetime=df.format(dateobj);
+		} catch (Exception e) {
+			System.out.println("Issue in get current date and time "+e);
+		}
+		return datetime;
+	}
+	
 	public void scrolbyxpath() {
 		try {
 			JavascriptExecutor jse=(JavascriptExecutor)driver;
 			jse.executeScript("", By.xpath(""));
 		} catch (Exception e) {
-			System.out.println("Issue in scrol by xpath "+e);
+			System.out.println("Issue in scrol by xpath  "+e);
 		}
 	}
-	
-	public String propertyutlity(String key) {
+	public String propertyutility(String key) {
 		String path="";
 		String value="";
 		try {
@@ -141,11 +153,12 @@ public class A2nd_Important_Code extends Baseliberary {
 			Properties prop=new Properties();
 			prop.load(fis);
 			value=prop.getProperty(key).trim();
-		} catch ( Exception e) {
+		} catch (Exception e) {
 			System.out.println("Issue in get read data from configure file "+e);
 		}
 		return value;
 	}
+	
 	public void brokenlink() {
 		WebDriverManager.chromedriver().setup();
 		driver=new ChromeDriver();
@@ -153,7 +166,7 @@ public class A2nd_Important_Code extends Baseliberary {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		List<WebElement> counts = driver.findElements(By.tagName("a"));
-		System.out.println("Number of links "+counts.size());
+		System.out.println("Number of Links "+counts.size());
 		ArrayList<String> urlList=new ArrayList<String>();
 		for(WebElement e:counts) {
 			String url = e.getAttribute("href");
@@ -169,24 +182,24 @@ public class A2nd_Important_Code extends Baseliberary {
 			httpcon.setConnectTimeout(1000);
 			httpcon.connect();
 			if(httpcon.getResponseCode()>=100  &&  httpcon.getResponseCode()<200) {
-				System.out.println(urlList+"----->"+httpcon.getResponseMessage()+"This Link is Broken with informational error ");
+				System.out.println(urlList+"----->"+httpcon.getResponseMessage()+"This Link is Broken with informational error");
 			}
 			else if(httpcon.getResponseCode()>=300  &&  httpcon.getResponseCode()<400) {
-				System.out.println(urlList+"----->"+httpcon.getResponseMessage()+"This link is Broken with Redirection error");
+				System.out.println(urlList+"----->"+httpcon.getResponseMessage()+"This Link is Broken with Redirection error");
 			}
 			else if(httpcon.getResponseCode()>=400  &&  httpcon.getResponseCode()<500) {
 				System.out.println(urlList+"----->"+httpcon.getResponseMessage()+"This link is Broken with Client error");
 			}
 			else if(httpcon.getResponseCode()>=500  &&  httpcon.getResponseCode()<600) {
-				System.out.println(urlList+"----->"+httpcon.getResponseMessage()+"This Link is Broken with internal server error");
+				System.out.println(urlList+"----->"+httpcon.getResponseMessage()+"This link is Broken with internal server error");
 			}
 			else {
-				System.out.println(urlList+"----->"+httpcon.getResponseMessage()+"This Link is Not Broken");
+				System.out.println(urlList+"----->"+httpcon.getResponseMessage()+"This Link is Not Broken ");
 			}
-			
 		} catch (Exception e) {
 			System.out.println("Issue in check broken link "+e);
 		}
+		//sfdfdasat
 	}
 	
 	public int getrandomnumber() {
@@ -197,10 +210,11 @@ public class A2nd_Important_Code extends Baseliberary {
 				randomNumber=objgenerator.nextInt(1000);
 			}
 		} catch (Exception e) {
-	         System.out.println("Issue in get random number "+e);
+			System.out.println("Issue in get random number "+e);
 		}
 		return randomNumber;
 	}
+	
 	public void uploadfilewithrobotclass(String imagepath) {
 		StringSelection stringSelection=new StringSelection(imagepath);
 		Clipboard clipboard=Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -215,34 +229,32 @@ public class A2nd_Important_Code extends Baseliberary {
 			System.out.println("Issue in upload file with robot class "+e);
 		}
 		robot.delay(150);
-		
 	}
 	
-	public String excelutility(String path, int rownum, int columnum) {
+	public String excelutilty(String path, int rownum, int columnum) {
 		String value="";
 		try {
 			FileInputStream fis=new FileInputStream(path);
 			XSSFWorkbook wb=new XSSFWorkbook();
 			XSSFSheet sheet=wb.getSheetAt(0);
 			value=sheet.getRow(rownum).getCell(columnum).getStringCellValue();
-//			value=sheet.getRow(rownum).getCell(columnum).getNumericCellValue();
 		} catch (Exception e) {
 			System.out.println("Issue in get read data from excel sheet "+e);
 		}
 		return value;
 	}
-	public int getrowcount(String path) {
-		int lastrowNumber=0;
+	public int rowcount(String path) {
+		int lastrowCount=0;
 		try {
 			FileInputStream fis=new FileInputStream(path);
 			XSSFWorkbook wb=new XSSFWorkbook();
 			XSSFSheet sheet=wb.getSheetAt(0);
-			lastrowNumber=sheet.getLastRowNum();
-		} catch ( Exception e) {
+			lastrowCount=sheet.getLastRowNum();
+		} catch (Exception e) {
 			System.out.println("Issue in get last row count from excel sheet "+e);
 		}
-		return lastrowNumber;
+		return lastrowCount;
 	}
-	
 }
+
 
